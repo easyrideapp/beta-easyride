@@ -8,6 +8,7 @@ import {
 } from "@plasmicapp/loader-react";
 import Error from "next/error";
 import { PLASMIC } from "../plasmic-init";
+import Head from "next/head";
 
 export default function PlasmicLoaderPage(props: {
   plasmicData?: ComponentRenderData;
@@ -17,12 +18,24 @@ export default function PlasmicLoaderPage(props: {
     return <Error statusCode={404} />;
   }
   return (
-    <PlasmicRootProvider
+    <>
+      <Head>
+      <link
+            rel="preload"
+            href="fonts/CenturyGothic.ttf"
+            as="font"
+            crossOrigin=""
+        />
+        <link rel="icon" href="favicon.ico" />
+      </Head>
+      <PlasmicRootProvider
       loader={PLASMIC}
       prefetchedData={plasmicData}
     >
       <PlasmicComponent component={plasmicData.entryCompMetas[0].name} />
     </PlasmicRootProvider>
+    </>
+   
   );
 }
 
